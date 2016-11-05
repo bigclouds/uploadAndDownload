@@ -1,0 +1,1 @@
+curl  -F "file=@pom.xml;type=text/plain;filename=aaa"  http://192.168.15.132:7080/mvcupload/upload.do

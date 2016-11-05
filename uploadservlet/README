@@ -1,0 +1,2 @@
+curl  -F "file=@pom.xml;type=text/plain;name=aaa"  http://192.168.15.132:7080/upload/fileUploadtwo
+curl -d "a\nb 123\nvvv" http://192.168.15.132:7080/upload/fileUploadone

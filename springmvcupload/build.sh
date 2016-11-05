@@ -1,0 +1,3 @@
+javac -cp .:/home/hadoop/.m2/repository/log4j/log4j/1.2.12/log4j-1.2.12.jar:/home/hadoop/.m2/repository/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1.jar  src/main/java/com/store/servlets/FileLoadClient.java
+
+java -cp src/main/java:/home/hadoop/.m2/repository/log4j/log4j/1.2.12/log4j-1.2.12.jar:/home/hadoop/.m2/repository/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1.jar:/home/hadoop/.m2/repository/commons-logging/commons-logging/1.1/commons-logging-1.1.jar:/home/hadoop/.m2/repository/commons-codec/commons-codec/1.4/commons-codec-1.4.jar    com.store.servlets.FileLoadClient  ./README
