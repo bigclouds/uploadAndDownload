@@ -10,6 +10,6 @@
         <property name="suffix" value=".jsp" />
     </bean>
 
-    <bean id="exceptionResolver" class="com.letv.uts.uploadServer.controller.ExceptionHandler"></bean>
-    <bean id="multipartResolver" class="com.letv.uts.uploadServer.controller.VideoMultipartResolver" p:defaultEncoding="utf-8" p:maxInMemorySize="12040" />
+    <bean id="exceptionResolver" class="com.test.uts.uploadServer.controller.ExceptionHandler"></bean>
+    <bean id="multipartResolver" class="com.test.uts.uploadServer.controller.VideoMultipartResolver" p:defaultEncoding="utf-8" p:maxInMemorySize="12040" />
 </beans>

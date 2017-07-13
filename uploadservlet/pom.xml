@@ -28,11 +28,11 @@
                 <BACKUP_MQ_TCP>tcp://111.206.212.201:8218</BACKUP_MQ_TCP>
                 <BACKUP_MQ_QUEUE>winterfell.exchange.upload.server.status/winterfell.key.upload</BACKUP_MQ_QUEUE>
 
-                <heartbeatServer>report.gslb.letv.com</heartbeatServer>
-                <uploadReportUrl>http://dispatcher.cloud.letv.com/report/reportServlet</uploadReportUrl>
-                <uploadFpReportUrl>http://dispatcher.cloud.letv.com/report/fpReport</uploadFpReportUrl>
-                <newCloudMD5>http://api.cloud.letv.com/engine/task/killer?killer=cloudvideo&amp;tlname=cloudsync</newCloudMD5>
-                <transcodeInit>http://cc.uts.letv.com:20080/api/subTranscode/init</transcodeInit>
+                <heartbeatServer>report.gslb.test.com</heartbeatServer>
+                <uploadReportUrl>http://dispatcher.cloud.test.com/report/reportServlet</uploadReportUrl>
+                <uploadFpReportUrl>http://dispatcher.cloud.test.com/report/fpReport</uploadFpReportUrl>
+                <newCloudMD5>http://api.cloud.test.com/engine/task/killer?killer=cloudvideo&amp;tlname=cloudsync</newCloudMD5>
+                <transcodeInit>http://cc.uts.test.com:20080/api/subTranscode/init</transcodeInit>
             </properties>
 	<build>
 		<finalName>fileupload</finalName>
