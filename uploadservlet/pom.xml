@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>fileupload</groupId>
 	<artifactId>com.store.servlets</artifactId>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>fileupload Webapp</name>
 	<url>http://maven.apache.org</url>
@@ -65,9 +65,6 @@
                             <Implementation-Build>${buildNumber}</Implementation-Build>
                         </manifestEntries>
                     </archive>
-                    <outputDirectory>  
-                     ${project.build.directory}/fileupload.war  
-                  </outputDirectory> 
                 </configuration>
             </plugin>
             <plugin>
