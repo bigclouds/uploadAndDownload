@@ -16,16 +16,16 @@
       	<profile> 
           <id>dev</id> 
 	<properties>
-                <mongo.host>115.182.93.148</mongo.host>
-                <MQ_HOST>115.182.93.237</MQ_HOST>
+                <mongo.host>114.122.43.148</mongo.host>
+                <MQ_HOST>145.132.99.137</MQ_HOST>
                 <MQ_PORT>5675</MQ_PORT>
-                <MQ_VIRTUAL_HOST>uts</MQ_VIRTUAL_HOST>
-                <MQ_USER>uts</MQ_USER>
-                <MQ_PASSWD>96de8876befde549328134b197cf191c</MQ_PASSWD>
-                <MQ_UPLOAD_EX>upload_to_gslb_ex</MQ_UPLOAD_EX>
+                <MQ_VIRTUAL_HOST>test</MQ_VIRTUAL_HOST>
+                <MQ_USER>test</MQ_USER>
+                <MQ_PASSWD>9errtde8876befde549328134b197cf191c</MQ_PASSWD>
+                <MQ_UPLOAD_EX>upload_to_ex</MQ_UPLOAD_EX>
                 <BACKUP_MQ_NAME>winterfell</BACKUP_MQ_NAME>
                 <BACKUP_MQ_PASSWORD>winterfellwinterfell</BACKUP_MQ_PASSWORD>
-                <BACKUP_MQ_TCP>tcp://111.206.212.201:8218</BACKUP_MQ_TCP>
+                <BACKUP_MQ_TCP>tcp://113.223.112.203:8018</BACKUP_MQ_TCP>
                 <BACKUP_MQ_QUEUE>winterfell.exchange.upload.server.status/winterfell.key.upload</BACKUP_MQ_QUEUE>
 
                 <heartbeatServer>report.gslb.test.com</heartbeatServer>
@@ -65,6 +65,9 @@
                             <Implementation-Build>${buildNumber}</Implementation-Build>
                         </manifestEntries>
                     </archive>
+                    <outputDirectory>  
+                     ${project.build.directory}/fileupload.war  
+                  </outputDirectory> 
                 </configuration>
             </plugin>
             <plugin>
