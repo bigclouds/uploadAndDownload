@@ -1,0 +1,15 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+<form action="login" method="post">
+    <input type="text" name="email" placeholder="Email">
+    <br>
+    <input type="password" name="password" placeholder="Password">
+    <br>
+    <button>Login</button>
+</form>
+</body>
+</html>
