@@ -14,6 +14,11 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 public class UploadHandleServletTwo extends HttpServlet {
+    //  upload settings
+    private static final int MEMORY_THRESHOLD   = 1024 * 1024 * 3;  // 3MB
+    private static final int MAX_FILE_SIZE      = 1024 * 1024 * 40; // 40MB
+    private static final int MAX_REQUEST_SIZE   = 1024 * 1024 * 50; // 50MB
+
     public void doGet(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, IOException {
 	//得到上传文件的保存目录，将上传的文件存放于WEB-INF目录下，不允许外界直接访问，保证上传文件的安全
@@ -33,6 +38,10 @@ public class UploadHandleServletTwo extends HttpServlet {
 	    DiskFileItemFactory factory = new DiskFileItemFactory();
 	    //2、创建一个文件上传解析器
 	    ServletFileUpload upload = new ServletFileUpload(factory);
+	    // sets maximum size of request (include file + form data)
+	    upload.setSizeMax(MAX_REQUEST_SIZE);
+	    // sets maximum size of upload file
+	    upload.setFileSizeMax(MAX_FILE_SIZE);
 	    //解决上传文件名的中文乱码
 	    upload.setHeaderEncoding("UTF-8"); 
 	    //3、判断提交上来的数据是否是上传表单的数据
@@ -78,9 +87,12 @@ public class UploadHandleServletTwo extends HttpServlet {
 		    in.close();
 		    //关闭输出流
 		    out.close();
+                    // saves the file on disk
+                    File storeFile = new File(savePath + "/" + filename + "-1");
+                    item.write(storeFile);
 		    //删除处理文件上传时生成的临时文件
 		    item.delete();
-		    message = "文件上传成功！";
+		    message = message + filename + "文件上传成功！<br>";
 		}
 	    }
 	}catch (Exception e) {

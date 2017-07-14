@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Vector;
+import java.util.Enumeration; 
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -26,7 +28,16 @@ public class FileLoadServlet extends HttpServlet {
                         file.mkdir();
                 }
 		logger.info("本次请求类型及表单域分隔符：" + request.getContentType());
-		logger.info("params: %s, %s", params, request.getParameterNames());
+		logger.info("\nparams: %s" + params);
+		try {
+			Enumeration pNames=request.getParameterNames();
+			while(pNames.hasMoreElements()){
+			    String name=(String)pNames.nextElement();
+			    String value=request.getParameter(name);
+			    logger.info(name + "=" + value);
+			}
+		}catch (Exception e){
+		}
 		if (request.getContentLength() > 0) {
 	           	InputStream inputStream = null;
 	           	FileOutputStream outputStream = null;
