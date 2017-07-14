@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: fileupload Webapp
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: root
+Implementation-Build: 
+Implementation-Vendor-Id: fileupload
+Created-By: Apache Maven 3.0.5
+Build-Jdk: 1.8.0_131
+Implementation-URL: http://maven.apache.org
+
