@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Enumeration;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.log4j.Logger;
 
 public class UploadHandleServletTwo extends HttpServlet {
     //  upload settings
@@ -19,14 +21,30 @@ public class UploadHandleServletTwo extends HttpServlet {
     private static final int MAX_FILE_SIZE      = 1024 * 1024 * 40; // 40MB
     private static final int MAX_REQUEST_SIZE   = 1024 * 1024 * 50; // 50MB
 
+    private static Logger logger = Logger.getLogger(FileLoadServlet.class);
+
     public void doGet(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, IOException {
+	String params = request.getQueryString();
+	logger.info("\nparams: " + params);
+	logger.info("本次请求类型及表单域分隔符：" + request.getContentType());
+	try {
+		Enumeration pNames=request.getParameterNames();	
+		while (pNames.hasMoreElements()) {
+			String name=(String)pNames.nextElement();
+			String[] values = request.getParameterValues(name);
+			for(String value : values){
+				logger.info("getParameterNames name" + "=" + value);
+			}
+		}
+		logger.info("myusername = " + request.getParameter("username"));
+	} catch (Exception e) {logger.error("error request.getParameterNames"); }
 	//得到上传文件的保存目录，将上传的文件存放于WEB-INF目录下，不允许外界直接访问，保证上传文件的安全
 	String savePath = this.getServletContext().getRealPath("/WEB-INF/upload");
 	File file = new File(savePath);
 	//判断上传文件的保存目录是否存在
 	if (!file.exists() && !file.isDirectory()) {
-	    System.out.println(savePath+"目录不存在，需要创建");
+	    logger.info(savePath+"目录不存在，需要创建");
 	    //创建目录
 	    file.mkdir();
 	}
@@ -58,12 +76,12 @@ public class UploadHandleServletTwo extends HttpServlet {
 		    //解决普通输入项的数据的中文乱码问题
 		    String value = item.getString("UTF-8");
 		    //value = new String(value.getBytes("iso8859-1"),"UTF-8");
-		    System.out.println(name + "=" + value);
+		    logger.info(name + "=" + value);
 		}else{
 		    //如果fileitem中封装的是上传文件
 		    //得到上传的文件名称，
 		    String filename = item.getName();
-		    System.out.println(filename);
+		    logger.info("upload " + filename);
 		    if(filename==null || filename.trim().equals("")){
 			continue;
 		    }

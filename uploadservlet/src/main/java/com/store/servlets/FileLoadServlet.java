@@ -28,7 +28,7 @@ public class FileLoadServlet extends HttpServlet {
                         file.mkdir();
                 }
 		logger.info("本次请求类型及表单域分隔符：" + request.getContentType());
-		logger.info("\nparams: %s" + params);
+		logger.info("\nparams: " + params);
 		try {
 			Enumeration pNames=request.getParameterNames();
 			while(pNames.hasMoreElements()){
