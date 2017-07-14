@@ -16,16 +16,16 @@
       	<profile> 
           <id>dev</id> 
 	<properties>
-                <mongo.host>115.192.23.48</mongo.host>
-                <MQ_HOST>112.12.193.237</MQ_HOST>
-                <MQ_PORT>5675</MQ_PORT>
+                <mongo.host>134.132.43.61</mongo.host>
+                <MQ_HOST>114.2.19.237</MQ_HOST>
+                <MQ_PORT>565</MQ_PORT>
                 <MQ_VIRTUAL_HOST>test</MQ_VIRTUAL_HOST>
                 <MQ_USER>test</MQ_USER>
-                <MQ_PASSWD>9efrfr4de8876befde549328134b197cf191c</MQ_PASSWD>
-                <MQ_UPLOAD_EX>upload_to_gslb_ex</MQ_UPLOAD_EX>
+                <MQ_PASSWD>9efde8876befde549328134b197cf191c</MQ_PASSWD>
+                <MQ_UPLOAD_EX>upload_to_b_ex</MQ_UPLOAD_EX>
                 <BACKUP_MQ_NAME>winterfell</BACKUP_MQ_NAME>
                 <BACKUP_MQ_PASSWORD>winterfellwinterfell</BACKUP_MQ_PASSWORD>
-                <BACKUP_MQ_TCP>tcp://11.106.232.1:8518</BACKUP_MQ_TCP>
+                <BACKUP_MQ_TCP>tcp://118.216.32.1:8518</BACKUP_MQ_TCP>
                 <BACKUP_MQ_QUEUE>winterfell.exchange.upload.server.status/winterfell.key.upload</BACKUP_MQ_QUEUE>
 
                 <heartbeatServer>report.gslb.test.com</heartbeatServer>
