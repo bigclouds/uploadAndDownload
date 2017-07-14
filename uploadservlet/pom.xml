@@ -80,6 +80,12 @@
                                   <targetPath>WEB-INF</targetPath>
                                   <filtering>true</filtering>
                             </resource>
+                            <resource>
+       				  <directory>.</directory>
+                                  <include>*.jsp</include>
+                                  <targetPath>.</targetPath>
+                                  <filtering>true</filtering>
+                            </resource>
                      </webResources>
                 </configuration>
             </plugin>
@@ -113,7 +119,7 @@
                     <stopPort>9999</stopPort>
                 </configuration>
             </plugin>
-	</plugins>
+	   </plugins>
           </build> 
           <activation> 
               <activeByDefault>true</activeByDefault> 

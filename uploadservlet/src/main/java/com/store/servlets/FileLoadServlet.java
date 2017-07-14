@@ -26,7 +26,7 @@ public class FileLoadServlet extends HttpServlet {
                         file.mkdir();
                 }
 		logger.info("本次请求类型及表单域分隔符：" + request.getContentType());
-		logger.info("------------ FileLoadServlet ------------%s" +  params);
+		logger.info("params: %s, %s", params, request.getParameterNames());
 		if (request.getContentLength() > 0) {
 	           	InputStream inputStream = null;
 	           	FileOutputStream outputStream = null;
