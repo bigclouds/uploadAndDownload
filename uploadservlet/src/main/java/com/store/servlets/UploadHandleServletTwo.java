@@ -38,7 +38,6 @@ public class UploadHandleServletTwo extends HttpServlet {
 				logger.info("getParameterNames name" + "=" + value);
 			}
 		}
-		logger.info("myusername = " + request.getParameter("username"));
 	} catch (Exception e) {logger.error("error request.getParameterNames"); }
 	//得到上传文件的保存目录，将上传的文件存放于WEB-INF目录下，不允许外界直接访问，保证上传文件的安全
 	//String savePath = this.getServletContext().getRealPath("/WEB-INF/upload");
@@ -82,23 +81,24 @@ public class UploadHandleServletTwo extends HttpServlet {
 		    String value = item.getString("UTF-8");
 		    //value = new String(value.getBytes("iso8859-1"),"UTF-8");
 		    logger.info(name + "=" + value);
-		}else{
+		} else {
 		    //如果fileitem中封装的是上传文件
 		    //得到上传的文件名称，
 		    String filename = item.getName();
-		    logger.info("upload " + filename);
-		    if(filename==null || filename.trim().equals("")){
+		    if(filename == null || filename.trim().equals("")){
 			continue;
 		    }
 		    filesups = filesups + 1;
 		    if (filesups > 1){
-			if(!isadmin)
+			if(!isadmin) {
 				message = "only admin can upload more than one file at one time";
 				break;
+			}
 		    }
 		    //注意：不同的浏览器提交的文件名是不一样的，有些浏览器提交上来的文件名是带有路径的，如：  c:\a\b\1.txt，而有些只是单纯的文件名，如：1.txt
 		    //处理获取到的上传文件的文件名的路径部分，只保留文件名部分
 		    filename = filename.substring(filename.lastIndexOf("\\")+1);
+		    /**
 		    //获取item中的上传文件的输入流
 		    InputStream in = item.getInputStream();
 		    //创建一个文件输出流
@@ -107,8 +107,8 @@ public class UploadHandleServletTwo extends HttpServlet {
 		    byte buffer[] = new byte[1024];
 		    //判断输入流中的数据是否已经读完的标识
 		    int len = 0;
-		    //循环将输入流读入到缓冲区当中，(len=in.read(buffer))>0就表示in里面还有数据
-		    while((len=in.read(buffer))>0){
+		    //循环将输入流读入到缓冲区当中，(len=in.read(buffer)) > 0就表示in里面还有数据
+		    while((len = in.read(buffer)) > 0){
 			//使用FileOutputStream输出流将缓冲区的数据写入到指定的目录(savePath + "\\" + filename)当中
 			out.write(buffer, 0, len);
 		    }
@@ -116,11 +116,13 @@ public class UploadHandleServletTwo extends HttpServlet {
 		    in.close();
 		    //关闭输出流
 		    out.close();
+		    */
                     // saves the file on disk
-                    File storeFile = new File(savePath + "/" + filename + "-1");
+                    File storeFile = new File(savePath + "/" + filename);
                     item.write(storeFile);
 		    //删除处理文件上传时生成的临时文件
 		    item.delete();
+		    logger.info("upload " + filename);
 		    message = message + filename + "文件上传成功！<br>";
 		}
 	    }

@@ -3,6 +3,9 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCursor;
+import com.mongodb.client.model.Filters;
 import java.net.*;
 import java.util.*;
 import org.bson.Document;
@@ -36,7 +39,7 @@ public class ConnectionDemo {
         MongoDatabase database = mongoClient.getDatabase("test");
 
         //Creates a new Collection inside the DB that you just created or retrieved
-        MongoCollection collection = database.getCollection("test");
+        MongoCollection<Document> collection = database.getCollection("test");
 
         //Creates a new Document named "doc1"
         //Since mongoDB is schema less you don't have to worry about extra fields or missing fields.
@@ -47,13 +50,19 @@ public class ConnectionDemo {
                 .append("Address", new Document("No", "221B").append("Street", "Baker").append("City", "London"));
 
         //Inserts the newly created document on to the Collection that we created
-        collection.insertOne(doc1);
+        collection.insertOne((Document)doc1);
 
         //Stores the first document that's inside the collection to the variable named myDoc
         Document myDoc = (Document) collection.find().first();
 
         //Prints the document in JSON format
         System.out.println(myDoc.toJson());
-
+	
+	//Print all
+	FindIterable<Document> findIterable = collection.find();  
+        MongoCursor<Document> mongoCursor = findIterable.iterator();  
+        while(mongoCursor.hasNext()){  
+            System.out.println((Document)mongoCursor.next());  
+        }  
     }
 }
