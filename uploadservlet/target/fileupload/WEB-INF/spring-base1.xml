@@ -27,7 +27,5 @@
     <mvc:view-controller path="/" view-name="index"/>
     <mvc:annotation-driven />
     <mvc:resources location="/assets/" mapping="/assets/**"></mvc:resources>
-
     <import resource="spring-*-autowire.xml" />
-
 </beans>

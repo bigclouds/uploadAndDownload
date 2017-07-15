@@ -15,9 +15,13 @@
 	<profiles> 
 		<profile> 
           		<id>dev</id> 
-	  		<env>dev</env>
 			<properties>
-				<mongo.host>114.122.43.148</mongo.host>
+				<env>dev</env>
+				<mongo.host>127.0.0.1</mongo.host>
+				<mongo.port>27017</mongo.port>
+				<mongo.db>upload</mongo.db>
+				<mongo.username>upload</mongo.username>
+				<mongo.password>upload</mongo.password>
 				<MQ_HOST>145.132.99.137</MQ_HOST>
 				<MQ_PORT>5675</MQ_PORT>
 				<MQ_VIRTUAL_HOST>test</MQ_VIRTUAL_HOST>
@@ -28,109 +32,125 @@
 				<BACKUP_MQ_PASSWORD>winterfellwinterfell</BACKUP_MQ_PASSWORD>
 				<BACKUP_MQ_TCP>tcp://113.223.112.203:8018</BACKUP_MQ_TCP>
 				<BACKUP_MQ_QUEUE>winterfell.exchange.upload.server.status/winterfell.key.upload</BACKUP_MQ_QUEUE>
-
-				<heartbeatServer>report.gslb.test.com</heartbeatServer>
-				<uploadReportUrl>http://dispatcher.cloud.test.com/report/reportServlet</uploadReportUrl>
-				<uploadFpReportUrl>http://dispatcher.cloud.test.com/report/fpReport</uploadFpReportUrl>
-				<newCloudMD5>http://api.cloud.test.com/engine/task/killer?killer=cloudvideo&amp;tlname=cloudsync</newCloudMD5>
-				<transcodeInit>http://cc.uts.test.com:20080/api/subTranscode/init</transcodeInit>
 			</properties>
-			<build>
-				<finalName>fileupload</finalName>
-				<filters> 
-					<filter>src/main/resources/datasource.properties</filter>
-					<filter>src/main/resources/env.properties</filter>
-					<filter>src/main/resources/log4j.properties</filter>
-					<filter>src/main/webapps/WEB-INF/spring-base1.xml</filter>
-					<filter>src/main/webapps/WEB-INF/spring-base.xml</filter>
-					<filter>src/main/webapps/WEB-INF/web.xml</filter>
-					<filter>src/main/webapps/WEB-INF/spring-servlet.xml</filter>
-				</filters> 
-			<resources> 
-                  		<resource> 
-				      <directory>src/main/resources;src/main/webapps/WEB-INF</directory> 
-				      <filtering>true</filtering> 
-				      <!-- optional --> 
-				      <includes> 
-					  <include>*.*</include> 
-				      </includes> 
-                  		</resource> 
-                	</resources> 
-	   	    <plugins>
-                	<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>3.0.0</version>
-				<configuration>
-				    <archive>
-                        		<manifest>
-                            			<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                        		</manifest>
-					<manifestEntries>
-					    <Implementation-Build>${buildNumber}</Implementation-Build>
-					</manifestEntries>
-                    		    </archive>
-                     		    <webResources>
-                            		<resource>
-					  <directory>src/main/resources</directory>
-					  <targetPath>WEB-INF/classes</targetPath>
-					  <filtering>true</filtering>
-                            		</resource>
-                            		<resource>
-					  <directory>src/main/webapps/WEB-INF</directory>
-					  <targetPath>WEB-INF</targetPath>
-					  <filtering>true</filtering>
-				    	</resource>
-                            		<resource>
-					  <directory>.</directory>
-					  <include>*.jsp</include>
-					  <targetPath>.</targetPath>
-					  <filtering>true</filtering>
-                            		</resource>
-                     		    </webResources>
-                		</configuration>
-            		</plugin>
-            	<plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-		<version>2.5</version>
-                <configuration>
-                    <encoding>utf-8</encoding>
-                </configuration>
-            	</plugin>
-            	<plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-		<version>2.3.2</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                    <encoding>utf-8</encoding>
-                </configuration>
-            	</plugin>
-	    	<plugin>
-                <groupId>org.mortbay.jetty</groupId>
-                <artifactId>maven-jetty-plugin</artifactId>
-                <version>6.1.10</version>
-                <configuration>
-                    <contextPath>/</contextPath>
-                    <webDefaultXml>webdefault.xml</webDefaultXml>
-                    <scanIntervalSeconds>0</scanIntervalSeconds>
-                    <stopKey>foo</stopKey>
-                    <stopPort>9999</stopPort>
-                </configuration>
-            	</plugin>
-	   </plugins>
-          </build> 
-          <activation> 
-              <activeByDefault>true</activeByDefault> 
-              <property> 
-                  <name>env</name> 
-                  <value>dev</value> 
-              </property> 
-          </activation> 
-      	</profile> 
+			<build>  
+				<filters>  
+				    <!--
+				    <filter>src/main/resources/dev-datasource.properties</filter>  
+				    <filter>src/main/resources/dev-env.properties</filter>  
+				    -->
+				</filters>  
+            		</build>  
+      		</profile> 
+		<profile> 
+          		<id>prod</id> 
+			  <activation> 
+			      <activeByDefault>true</activeByDefault> 
+			  </activation> 
+			<properties>
+				<env>prod</env>
+				<mongo.host>127.0.0.1</mongo.host>
+				<mongo.port>27017</mongo.port>
+				<mongo.db>upload</mongo.db>
+				<mongo.username>upload</mongo.username>
+				<mongo.password>upload</mongo.password>
+				<MQ_HOST>140.130.99.137</MQ_HOST>
+				<MQ_PORT>5675</MQ_PORT>
+				<MQ_VIRTUAL_HOST>test</MQ_VIRTUAL_HOST>
+				<MQ_USER>test</MQ_USER>
+				<MQ_PASSWD>9errtde8876befde549328134b197cf191c</MQ_PASSWD>
+				<MQ_UPLOAD_EX>upload_to_ex</MQ_UPLOAD_EX>
+				<BACKUP_MQ_NAME>winterfell</BACKUP_MQ_NAME>
+				<BACKUP_MQ_PASSWORD>winterfellwinterfell</BACKUP_MQ_PASSWORD>
+				<BACKUP_MQ_TCP>tcp://110.220.112.203:8018</BACKUP_MQ_TCP>
+				<BACKUP_MQ_QUEUE>winterfell.exchange.upload.server.status/winterfell.key.upload</BACKUP_MQ_QUEUE>
+			</properties>
+			<build>  
+				<filters>  
+				    <!--
+				    <filter>src/main/resources/prod-datasource.properties</filter>  
+				    <filter>src/main/resources/prod-env.properties</filter>  
+				    -->
+				</filters>  
+            		</build>  
+      		</profile> 
 	</profiles> 
+	<build>
+		<finalName>fileupload</finalName>
+		<filters> 
+			<filter>src/main/resources/datasource.properties</filter>
+			<filter>src/main/resources/env.properties</filter>
+			<!--
+			<filter>src/main/resources/log4j.properties</filter>
+			<filter>src/main/webapps/WEB-INF/spring-base1.xml</filter>
+			<filter>src/main/webapps/WEB-INF/spring-base.xml</filter>
+			<filter>src/main/webapps/WEB-INF/web.xml</filter>
+			<filter>src/main/webapps/WEB-INF/spring-servlet.xml</filter>
+			-->
+		</filters> 
+		<resources> 
+			<resource> 
+			      <directory>src/main/resources</directory> 
+			      <filtering>true</filtering> 
+			      <includes> 
+				  <include>*.*</include> 
+			      </includes> 
+			</resource> 
+		</resources> 
+	    <plugins>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-war-plugin</artifactId>
+			<version>3.0.0</version>
+			<configuration>
+			    <archive>
+				<manifest>
+					<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+				</manifest>
+				<manifestEntries>
+				    <Implementation-Build>${buildNumber}</Implementation-Build>
+				</manifestEntries>
+			    </archive>
+			    <webResources>
+				<resource>
+				  <directory>src/main/resources</directory>
+				  <targetPath>WEB-INF/classes</targetPath>
+				  <filtering>true</filtering>
+				</resource>
+				<resource>
+				  <directory>src/main/webapps/WEB-INF</directory>
+				  <targetPath>WEB-INF</targetPath>
+				  <filtering>true</filtering>
+				</resource>
+				<resource>
+				  <directory>.</directory>
+				  <include>*.jsp</include>
+				  <targetPath>.</targetPath>
+				  <filtering>true</filtering>
+				</resource>
+			    </webResources>
+			</configuration>
+		</plugin>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-resources-plugin</artifactId>
+			<version>2.5</version>
+			<configuration>
+			    <encoding>utf-8</encoding>
+			</configuration>
+		</plugin>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<version>2.3.2</version>
+			<configuration>
+			    <source>1.8</source>
+			    <target>1.8</target>
+			    <encoding>utf-8</encoding>
+			</configuration>
+            	</plugin>
+	    </plugins>
+          </build> 
       
 	<dependencies>
 		<dependency>
@@ -277,6 +297,16 @@
 		    <groupId>commons-fileupload</groupId>
 		    <artifactId>commons-fileupload</artifactId>
 		    <version>1.3.1</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.mongodb</groupId>
+		    <artifactId>mongo-java-driver</artifactId>
+		    <version>3.2.2</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.mongodb</groupId>
+		    <artifactId>bson</artifactId>
+		    <version>3.2.2</version>
 		</dependency>
 	</dependencies>
 
