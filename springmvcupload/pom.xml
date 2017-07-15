@@ -1,10 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>fileupload</groupId>
+	<groupId>fileuploadmvc</groupId>
 	<artifactId>com.store.servlets</artifactId>
 	<packaging>war</packaging>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1.1-SNAPSHOT</version>
 	<name>fileupload Webapp</name>
 	<url>http://maven.apache.org</url>
 	<properties>
@@ -13,114 +13,106 @@
 		<junitversion>3.8.1</junitversion>
 	</properties>
 	<profiles> 
-      	<profile> 
-          <id>dev</id> 
-	<properties>
-                <mongo.host>134.132.43.61</mongo.host>
-                <MQ_HOST>114.2.19.237</MQ_HOST>
-                <MQ_PORT>565</MQ_PORT>
-                <MQ_VIRTUAL_HOST>test</MQ_VIRTUAL_HOST>
-                <MQ_USER>test</MQ_USER>
-                <MQ_PASSWD>9efde8876befde549328134b197cf191c</MQ_PASSWD>
-                <MQ_UPLOAD_EX>upload_to_b_ex</MQ_UPLOAD_EX>
-                <BACKUP_MQ_NAME>winterfell</BACKUP_MQ_NAME>
-                <BACKUP_MQ_PASSWORD>winterfellwinterfell</BACKUP_MQ_PASSWORD>
-                <BACKUP_MQ_TCP>tcp://118.216.32.1:8518</BACKUP_MQ_TCP>
-                <BACKUP_MQ_QUEUE>winterfell.exchange.upload.server.status/winterfell.key.upload</BACKUP_MQ_QUEUE>
+      		<profile> 
+          	    	<id>dev</id> 
+		    	<properties>
+				<env>dev</env>
+				<mongo.host>134.132.43.61</mongo.host>
+				<MQ_HOST>114.2.19.237</MQ_HOST>
+				<MQ_PORT>565</MQ_PORT>
+				<MQ_VIRTUAL_HOST>test</MQ_VIRTUAL_HOST>
+				<MQ_USER>test</MQ_USER>
+				<MQ_PASSWD>9efde8876befde549328134b197cf191c</MQ_PASSWD>
+				<MQ_UPLOAD_EX>upload_to_b_ex</MQ_UPLOAD_EX>
+				<BACKUP_MQ_NAME>winterfell</BACKUP_MQ_NAME>
+				<BACKUP_MQ_PASSWORD>winterfellwinterfell</BACKUP_MQ_PASSWORD>
+				<BACKUP_MQ_TCP>tcp://118.216.32.1:8518</BACKUP_MQ_TCP>
+				<BACKUP_MQ_QUEUE>winterfell.exchange.upload.server.status/winterfell.key.upload</BACKUP_MQ_QUEUE>
+			</properties>
+			<activation> 
+			      <activeByDefault>true</activeByDefault> 
+			</activation> 
+		</profile> 
+	</profiles> 
 
-                <heartbeatServer>report.gslb.test.com</heartbeatServer>
-                <uploadReportUrl>http://dispatcher.cloud.test.com/report/reportServlet</uploadReportUrl>
-                <uploadFpReportUrl>http://dispatcher.cloud.test.com/report/fpReport</uploadFpReportUrl>
-                <newCloudMD5>http://api.cloud.test.com/engine/task/killer?killer=cloudvideo&amp;tlname=cloudsync</newCloudMD5>
-                <transcodeInit>http://cc.uts.test.com:20080/api/subTranscode/init</transcodeInit>
-            </properties>
 	<build>
 		<finalName>fileupload</finalName>
               	<filters> 
 			<filter>src/main/resources/datasource.properties</filter>
 			<filter>src/main/resources/env.properties</filter>
 			<filter>src/main/resources/log4j.properties</filter>
-              	</filters> 
-              	<resources> 
-                  <resource> 
-                      <directory>src/main/resources</directory> 
-                      <filtering>true</filtering> 
-                      <!-- optional --> 
-                      <includes> 
-                          <include>*.*</include> 
-                      </includes> 
-                  </resource> 
+		</filters> 
+		<resources> 
+			<resource> 
+			      <directory>src/main/resources</directory> 
+			      <filtering>true</filtering> 
+			      <!-- optional --> 
+			      <includes> 
+				  <include>*.*</include> 
+			      </includes> 
+			 </resource> 
                 </resources> 
-	   <plugins>
-                <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-		<version>3.0.0</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                        </manifest>
-                        <manifestEntries>
-                            <Implementation-Build>${buildNumber}</Implementation-Build>
-                        </manifestEntries>
-                    </archive>
-                    <webResources>
-                            <resource>
-                                  <directory>src/main/resources</directory>
-                                  <targetPath>WEB-INF/classes</targetPath>
-                                  <filtering>true</filtering>
-                            </resource>
-                            <resource>
-                                  <directory>src/main/webapps/WEB-INF</directory>
-                                  <targetPath>WEB-INF</targetPath>
-                                  <filtering>true</filtering>
-                            </resource>
-                     </webResources>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-		<version>2.5</version>
-                <configuration>
-                    <encoding>utf-8</encoding>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-		<version>2.3.2</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                    <encoding>utf-8</encoding>
-                </configuration>
-            </plugin>
-	    <plugin>
-                <groupId>org.mortbay.jetty</groupId>
-                <artifactId>maven-jetty-plugin</artifactId>
-                <version>6.1.10</version>
-                <configuration>
-                    <contextPath>/</contextPath>
-                    <webDefaultXml>webdefault.xml</webDefaultXml>
-                    <scanIntervalSeconds>0</scanIntervalSeconds>
-                    <stopKey>foo</stopKey>
-                    <stopPort>9999</stopPort>
-                </configuration>
-            </plugin>
-	</plugins>
+	   	<plugins>
+		    <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.0.0</version>
+				<configuration>
+				    <archive>
+					<manifest>
+					    <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+					</manifest>
+					<manifestEntries>
+					    <Implementation-Build>${buildNumber}</Implementation-Build>
+					</manifestEntries>
+				    </archive>
+				    <webResources>
+					 <resource>
+						<directory>src/main/resources</directory>
+						<targetPath>WEB-INF/classes</targetPath>
+						<filtering>true</filtering>
+					 </resource>
+					 <resource>
+						 <directory>src/main/webapps/WEB-INF</directory>
+						 <targetPath>WEB-INF</targetPath>
+						 <filtering>true</filtering>
+                            		</resource>
+				     </webResources>
+				</configuration>
+			 </plugin>
+		    <plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-resources-plugin</artifactId>
+			<version>2.5</version>
+			<configuration>
+			    <encoding>utf-8</encoding>
+			</configuration>
+		    </plugin>
+		    <plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<version>2.3.2</version>
+			<configuration>
+			    <source>1.8</source>
+			    <target>1.8</target>
+			    <encoding>utf-8</encoding>
+			</configuration>
+		    </plugin>
+		    <plugin>
+			<groupId>org.mortbay.jetty</groupId>
+			<artifactId>maven-jetty-plugin</artifactId>
+			<version>6.1.10</version>
+			<configuration>
+			    <contextPath>/</contextPath>
+			    <webDefaultXml>webdefault.xml</webDefaultXml>
+			    <scanIntervalSeconds>0</scanIntervalSeconds>
+			    <stopKey>foo</stopKey>
+			    <stopPort>9999</stopPort>
+			</configuration>
+		    </plugin>
+		</plugins>
           </build> 
-          <activation> 
-              <activeByDefault>true</activeByDefault> 
-              <property> 
-                  <name>env</name> 
-                  <value>dev</value> 
-              </property> 
-          </activation> 
-      	</profile> 
-	</profiles> 
-      
+              
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -283,5 +275,4 @@
 		    <version>1.2.12</version>
 		</dependency>
 	</dependencies>
-
 </project>
