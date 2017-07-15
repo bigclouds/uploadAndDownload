@@ -6,10 +6,19 @@ public class User {
 
     private String email;
     private String password;
+    private boolean isadmin;
 
     public User(String email, String password) {
+        //this.email = email;
+        //this.password = password;
+	this(email, password, false);
+    }
+
+
+    public User(String email, String password, boolean isadmin) {
         this.email = email;
         this.password = password;
+	this.isadmin = isadmin;
     }
 
     public String getEmail() {
@@ -19,6 +28,15 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public boolean isAdmin() {
+	return this.isadmin;
+    }
+
+    @Override
+    public String toString() {
+        return this.email + " " + (this.isadmin ? "ADMIN" : "Not ADMIN");
     }
 
     @Override

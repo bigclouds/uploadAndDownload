@@ -8,6 +8,7 @@ import java.util.Enumeration;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.fileupload.FileItem;
@@ -40,7 +41,8 @@ public class UploadHandleServletTwo extends HttpServlet {
 		logger.info("myusername = " + request.getParameter("username"));
 	} catch (Exception e) {logger.error("error request.getParameterNames"); }
 	//得到上传文件的保存目录，将上传的文件存放于WEB-INF目录下，不允许外界直接访问，保证上传文件的安全
-	String savePath = this.getServletContext().getRealPath("/WEB-INF/upload");
+	//String savePath = this.getServletContext().getRealPath("/WEB-INF/upload");
+	String savePath = "/letv/upload";
 	File file = new File(savePath);
 	//判断上传文件的保存目录是否存在
 	if (!file.exists() && !file.isDirectory()) {
@@ -68,6 +70,9 @@ public class UploadHandleServletTwo extends HttpServlet {
 		return;
 	    }
 	    //4、使用ServletFileUpload解析器解析上传数据，解析结果返回的是一个List<FileItem>集合，每一个FileItem对应一个Form表单的输入项
+	    HttpSession session = request.getSession(false);
+            boolean isadmin = Boolean.valueOf((Boolean)session.getAttribute("isadmin"));
+	    int filesups = 0;
 	    List<FileItem> list = upload.parseRequest(request);
 	    for(FileItem item : list){
 		//如果fileitem中封装的是普通输入项的数据
@@ -84,6 +89,12 @@ public class UploadHandleServletTwo extends HttpServlet {
 		    logger.info("upload " + filename);
 		    if(filename==null || filename.trim().equals("")){
 			continue;
+		    }
+		    filesups = filesups + 1;
+		    if (filesups > 1){
+			if(!isadmin)
+				message = "only admin can upload more than one file at one time";
+				break;
 		    }
 		    //注意：不同的浏览器提交的文件名是不一样的，有些浏览器提交上来的文件名是带有路径的，如：  c:\a\b\1.txt，而有些只是单纯的文件名，如：1.txt
 		    //处理获取到的上传文件的文件名的路径部分，只保留文件名部分

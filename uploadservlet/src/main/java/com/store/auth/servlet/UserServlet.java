@@ -13,7 +13,8 @@ public class UserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	HttpSession session = req.getSession(false);
 	String message = (String) session.getAttribute("email");
-	req.setAttribute("message",message);
+	String isadmin = Boolean.valueOf((Boolean)session.getAttribute("isadmin"))?" ADMIN":" No ADMIN";
+	req.setAttribute("message",message + isadmin);
         req.getRequestDispatcher("/user.jsp").forward(req, resp);
     }
 }
