@@ -30,7 +30,7 @@ public class SessionFilter implements Filter {
         HttpServletResponse httpResp = (HttpServletResponse) resp;
 
 	String requestURI = ((HttpServletRequest) req).getRequestURI();
-	logger.info("requestURI" + requestURI);
+	logger.info("requestURI = " + requestURI);
 	if (!this.exactMatchExcludedURLs.isEmpty()) {
             for (String exactMatchExcludedURL : this.exactMatchExcludedURLs) {
                 if (requestURI.equals(exactMatchExcludedURL)) {

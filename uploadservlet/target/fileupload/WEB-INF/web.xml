@@ -85,11 +85,11 @@
         </init-param>
 	<init-param>
          <param-name>exactMatchExcludedURLs</param-name>
-         <param-value>login.jsp,msg.jsp,user.jsp</param-value>
+         <param-value>login.jsp,msg.jsp</param-value>
         </init-param>
         <init-param>
          <param-name>approximateMatchExcludedURLs</param-name>
-         <param-value>/static,login,login.jsp,msg.jsp,user.jsp,forgetme.jsp</param-value>
+         <param-value>/test,/static,login,.jsp,.html</param-value>
        </init-param>
    </filter>
    <filter-mapping>
