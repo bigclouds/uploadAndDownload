@@ -23,7 +23,7 @@
   version="3.0"
   metadata-complete="true">
 
-  <display-name>LG Application</display-name>
+  <display-name>Upload Application</display-name>
   <description>
     A scriptable management web application for the Tomcat Web Server;
     Manager lets you view, load/unload/etc particular web applications.

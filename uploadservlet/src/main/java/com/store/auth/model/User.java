@@ -6,17 +6,20 @@ public class User {
 
     private String email;
     private String password;
+    private String username;
     private boolean isadmin;
 
-    public User(String email, String password) {
-        //this.email = email;
-        //this.password = password;
-	this(email, password, false);
+    public User(String email, String username, String password) {
+	this(email, username, password, false);
     }
 
+    public User(String email, String password) {
+        this(email, null, password, false);
+    }
 
-    public User(String email, String password, boolean isadmin) {
+    public User(String email, String username, String password, boolean isadmin) {
         this.email = email;
+        this.username = username;
         this.password = password;
 	this.isadmin = isadmin;
     }
@@ -30,6 +33,10 @@ public class User {
         return password;
     }
 
+    public String getName() {
+	return username;
+    }
+
     public boolean isAdmin() {
 	return this.isadmin;
     }
@@ -41,7 +48,7 @@ public class User {
 
     @Override
     public int hashCode() {
-        return Objects.hash(email, password);
+        return Objects.hash(email, username);
     }
 
     @Override

@@ -18,6 +18,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getParameter("email");
+	String name = req.getParameter("username");
         String password = req.getParameter("password");
         if (email != null && password != null) {
             if (UserService.hasUser(new User(email, password))) {
@@ -31,6 +32,7 @@ public class LoginServlet extends HttpServlet {
                 session = req.getSession(true);
                 session.setAttribute("email", email);
                 session.setAttribute("isadmin", new Boolean(u.isAdmin()));
+		session.setAttribute("name", u.getName());
                 resp.sendRedirect("index.jsp");
                 return;
             }

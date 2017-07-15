@@ -9,8 +9,8 @@ public class UserService {
     private static final List<User> USERS = new ArrayList<>();
 
     static {
-        USERS.add(new User("admin@admin", "admin", true));
-        USERS.add(new User("user@user", "user"));
+        USERS.add(new User("admin@admin", "admin", "admin", true));
+        USERS.add(new User("user@user", "user", "user"));
     }
 
     public static boolean hasUser(User user) {
