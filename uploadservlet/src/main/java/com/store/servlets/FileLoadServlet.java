@@ -6,6 +6,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Vector;
 import java.util.Enumeration; 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,14 +19,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
-public class FileLoadServlet extends HttpServlet {
+@Controller
+public class FileLoadServlet {
 	private static final long serialVersionUID = 1302377908285976972L;
 	private static Logger logger = Logger.getLogger(FileLoadServlet.class);
 
+	@RequestMapping(value = "/fileUploadone", method = RequestMethod.POST)
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 		String params = request.getQueryString();  
-		String savePath = this.getServletContext().getRealPath("/WEB-INF/upload");
+		//String savePath = this.getServletContext().getRealPath("/WEB-INF/upload");
+		String savePath = "/letv/upload";
 		File file = new File(savePath);
             	System.out.println("upload test " +  savePath);
 		if (!file.exists() && !file.isDirectory()) {
@@ -62,7 +71,7 @@ public class FileLoadServlet extends HttpServlet {
 				inputStream.close();
 			}
 		}
-		request.getRequestDispatcher("uploadone.jsp").forward(request, response);
+		request.getRequestDispatcher("/jsp/uploadone.jsp").forward(request, response);
 	}
 
 	protected void doGet(HttpServletRequest request,HttpServletResponse response)  

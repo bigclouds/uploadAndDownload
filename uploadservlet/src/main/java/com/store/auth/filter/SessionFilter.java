@@ -59,7 +59,7 @@ public class SessionFilter implements Filter {
                     return;
                 }
             }
-            httpResp.sendRedirect("login.jsp");
+            httpResp.sendRedirect("jsp/login.jsp");
 	}
     }
 

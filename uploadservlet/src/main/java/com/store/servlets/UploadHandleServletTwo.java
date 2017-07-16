@@ -14,9 +14,16 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.apache.log4j.Logger;
 
-public class UploadHandleServletTwo extends HttpServlet {
+@Controller
+public class UploadHandleServletTwo {
     //  upload settings
     private static final int MEMORY_THRESHOLD   = 1024 * 1024 * 3;  // 3MB
     private static final int MAX_FILE_SIZE      = 1024 * 1024 * 40; // 40MB
@@ -24,7 +31,8 @@ public class UploadHandleServletTwo extends HttpServlet {
 
     private static Logger logger = Logger.getLogger(FileLoadServlet.class);
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response)
+    @RequestMapping(value = "/fileUploadtwo", method = RequestMethod.POST)
+    public void doPost(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, IOException {
 	String params = request.getQueryString();
 	logger.info("\nparams: " + params);
@@ -131,10 +139,11 @@ public class UploadHandleServletTwo extends HttpServlet {
 	    e.printStackTrace();
 	}
 	request.setAttribute("message",message);
-	request.getRequestDispatcher("/msg.jsp").forward(request, response);
+	request.getRequestDispatcher("/jsp/msg.jsp").forward(request, response);
     }
-    public void doPost(HttpServletRequest request, HttpServletResponse response)
+
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, IOException {
-        doGet(request, response);
+        doPost(request, response);
     }
 }

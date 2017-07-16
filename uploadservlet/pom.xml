@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>fileupload</groupId>
-	<artifactId>com.store.servlets</artifactId>
+	<artifactId>com.store</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>fileupload Webapp</name>
@@ -22,7 +22,11 @@
 				<mongo.db>upload</mongo.db>
 				<mongo.username>upload</mongo.username>
 				<mongo.password>upload</mongo.password>
-				<MQ_HOST>145.132.99.137</MQ_HOST>
+				<mongo.connectionsPerHost>10</mongo.connectionsPerHost>
+				<mongo.autoConnectRetry>true</mongo.autoConnectRetry>
+				<mongo.socketKeepAlive>true</mongo.socketKeepAlive>
+				<mongo.socketTimeout>5000</mongo.socketTimeout>
+				<MQ_HOST>127.0.0.1</MQ_HOST>
 				<MQ_PORT>5675</MQ_PORT>
 				<MQ_VIRTUAL_HOST>test</MQ_VIRTUAL_HOST>
 				<MQ_USER>test</MQ_USER>
@@ -30,7 +34,7 @@
 				<MQ_UPLOAD_EX>upload_to_ex</MQ_UPLOAD_EX>
 				<BACKUP_MQ_NAME>winterfell</BACKUP_MQ_NAME>
 				<BACKUP_MQ_PASSWORD>winterfellwinterfell</BACKUP_MQ_PASSWORD>
-				<BACKUP_MQ_TCP>tcp://113.223.112.203:8018</BACKUP_MQ_TCP>
+				<BACKUP_MQ_TCP>tcp://127.0.0.1:8018</BACKUP_MQ_TCP>
 				<BACKUP_MQ_QUEUE>winterfell.exchange.upload.server.status/winterfell.key.upload</BACKUP_MQ_QUEUE>
 			</properties>
 			<build>  
@@ -76,17 +80,10 @@
       		</profile> 
 	</profiles> 
 	<build>
-		<finalName>fileupload</finalName>
+		<finalName>fileuploadmvc</finalName>
 		<filters> 
 			<filter>src/main/resources/datasource.properties</filter>
 			<filter>src/main/resources/env.properties</filter>
-			<!--
-			<filter>src/main/resources/log4j.properties</filter>
-			<filter>src/main/webapps/WEB-INF/spring-base1.xml</filter>
-			<filter>src/main/webapps/WEB-INF/spring-base.xml</filter>
-			<filter>src/main/webapps/WEB-INF/web.xml</filter>
-			<filter>src/main/webapps/WEB-INF/spring-servlet.xml</filter>
-			-->
 		</filters> 
 		<resources> 
 			<resource> 
@@ -123,9 +120,8 @@
 				  <filtering>true</filtering>
 				</resource>
 				<resource>
-				  <directory>.</directory>
-				  <include>*.jsp</include>
-				  <targetPath>.</targetPath>
+				  <directory>jsp</directory>
+				  <targetPath>jsp</targetPath>
 				  <filtering>true</filtering>
 				</resource>
 			    </webResources>
@@ -305,8 +301,23 @@
 		</dependency>
 		<dependency>
 		    <groupId>org.mongodb</groupId>
+		    <artifactId>mongodb-driver-async</artifactId>
+		    <version>3.2.2</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.mongodb</groupId>
 		    <artifactId>bson</artifactId>
 		    <version>3.2.2</version>
+		</dependency>
+		<dependency>
+	            <groupId>org.springframework.data</groupId>
+		    <artifactId>spring-data-mongodb</artifactId>
+		    <version>1.10.4.RELEASE</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.hibernate.ogm</groupId>
+		    <artifactId>hibernate-ogm-mongodb</artifactId>
+		    <version>5.0.4.Final</version>
 		</dependency>
 	</dependencies>
 
