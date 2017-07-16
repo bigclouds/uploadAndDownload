@@ -49,8 +49,8 @@ public class MySedServlet extends HttpServlet {
 			out.println("</head>");
 			out.println("<body>");
 			out.println("<h2>Servlet MyFirstServlet at " + request.getContextPath() + "</h2>");
-			out.println("env : " + env.get("uploadPrefix") + ", " + env.get("hfdsUrl") );
-			out.println("env : " + envutil.get("uploadPrefix") + ", " + envutil.get("hfdsUrl") );
+			out.println("env : " + env.get("uploadPrefix") + ", " + env.get("hdfsUrl") );
+			out.println("env : " + envutil.get("uploadPrefix") + ", " + envutil.get("hdfsUrl") );
 			out.println("</body>");
 			out.println("</html>");
 		} catch (Exception e) {
@@ -74,8 +74,8 @@ public class MySedServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		try {
 			out.println("MyFirstServlet method = info1 GET");
-			out.println("env : " + env.get("uploadPrefix") + ", " + env.get("hfdsUrl") );
-			out.println("env : " + envutil.get("uploadPrefix") + ", " + envutil.get("hfdsUrl") );
+			out.println("env : " + env.get("uploadPrefix") + ", " + env.get("hdfsUrl") );
+			out.println("env : " + envutil.get("uploadPrefix") + ", " + envutil.get("hdfsUrl") );
 		} catch (Exception e) {
                         e.printStackTrace();
                 } finally {
@@ -91,8 +91,8 @@ public class MySedServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		try {
 			out.println("MyFirstServlet method = info2 POST");
-			out.println("env : " + env.get("uploadPrefix") + ", " + env.get("hfdsUrl") );
-			out.println("env : " + envutil.get("uploadPrefix") + ", " + envutil.get("hfdsUrl") );
+			out.println("env : " + env.get("uploadPrefix") + ", " + env.get("hdfsUrl") );
+			out.println("env : " + envutil.get("uploadPrefix") + ", " + envutil.get("hdfsUrl") );
 		} catch (Exception e) {
                         e.printStackTrace();
                 } finally {
@@ -111,8 +111,8 @@ public class MySedServlet extends HttpServlet {
 			out.println("MyFirstServlet method = info3 GET");
 			out.println("name = " + name);
 			out.println("id = " + Integer.toString(id));
-			out.println("env : " + env.get("uploadPrefix") + ", " + env.get("hfdsUrl") );
-			out.println("env : " + envutil.get("uploadPrefix") + ", " + envutil.get("hfdsUrl") );
+			out.println("env : " + env.get("uploadPrefix") + ", " + env.get("hdfsUrl") );
+			out.println("env : " + envutil.get("uploadPrefix") + ", " + envutil.get("hdfsUrl") );
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -131,8 +131,8 @@ public class MySedServlet extends HttpServlet {
 			out.println("MyFirstServlet method = info4");
 			out.println("name = " + name);
 			out.println("id = " + Integer.toString(id));
-			out.println("env : " + env.get("uploadPrefix") + ", " + env.get("hfdsUrl") );
-			out.println("env : " + envutil.get("uploadPrefix") + ", " + envutil.get("hfdsUrl") );
+			out.println("env : " + env.get("uploadPrefix") + ", " + env.get("hdfsUrl") );
+			out.println("env : " + envutil.get("uploadPrefix") + ", " + envutil.get("hdfsUrl") );
 		} catch (Exception e) {
                         e.printStackTrace();
                 } finally {
