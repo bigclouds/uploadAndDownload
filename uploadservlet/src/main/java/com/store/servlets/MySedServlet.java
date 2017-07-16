@@ -7,16 +7,35 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import com.store.env.Env;
+import com.store.env.EnvUtil;
 
 @Controller
-@RequestMapping(value = "/test2")
+//@RequestMapping(value = "/test2")
 public class MySedServlet extends HttpServlet {
+	@Autowired
+	//@Qualifier(value = "Env")
+	private Env env;
 
+	@Autowired
+	//@Qualifier(value = "Env")
+	private EnvUtil envutil;
+
+	//@Autowired
+	//public MySedServlet(Env e) {
+	//	env = e;
+	//}
+
+	@RequestMapping(value = "/test2")
 	protected void doGet(HttpServletRequest request,
 		HttpServletResponse response) throws ServletException, IOException 
 	{
@@ -30,11 +49,15 @@ public class MySedServlet extends HttpServlet {
 			out.println("</head>");
 			out.println("<body>");
 			out.println("<h2>Servlet MyFirstServlet at " + request.getContextPath() + "</h2>");
+			out.println("env : " + env.get("uploadPrefix") + ", " + env.get("hfdsUrl") );
+			out.println("env : " + envutil.get("uploadPrefix") + ", " + envutil.get("hfdsUrl") );
 			out.println("</body>");
 			out.println("</html>");
-			} finally {
-				out.close();
-			}	
+		} catch (Exception e) {
+                        e.printStackTrace();
+                } finally {
+			out.close();
+		}	
 	}
 
 	protected void doPost(HttpServletRequest request,
@@ -43,7 +66,7 @@ public class MySedServlet extends HttpServlet {
 		doGet(request, response);
 	}
 
-	@RequestMapping(params = "method=info1",method = RequestMethod.GET)
+	@RequestMapping(value = "/test2", params = "method=info1",method = RequestMethod.GET)
 	public void getServletInfo1(HttpServletRequest request,
                 HttpServletResponse response) throws ServletException, IOException 
 	{
@@ -51,12 +74,16 @@ public class MySedServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		try {
 			out.println("MyFirstServlet method = info1 GET");
-		} finally {
+			out.println("env : " + env.get("uploadPrefix") + ", " + env.get("hfdsUrl") );
+			out.println("env : " + envutil.get("uploadPrefix") + ", " + envutil.get("hfdsUrl") );
+		} catch (Exception e) {
+                        e.printStackTrace();
+                } finally {
 			out.close();
 		}	
 	}
 
-	@RequestMapping(params = "method=info2",method = RequestMethod.POST)
+	@RequestMapping(value = "/test2",params = "method=info2",method = RequestMethod.POST)
 	public void getServletInfo2(HttpServletRequest request,
                 HttpServletResponse response) throws ServletException, IOException 
 	{
@@ -64,13 +91,17 @@ public class MySedServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		try {
 			out.println("MyFirstServlet method = info2 POST");
-		} finally {
+			out.println("env : " + env.get("uploadPrefix") + ", " + env.get("hfdsUrl") );
+			out.println("env : " + envutil.get("uploadPrefix") + ", " + envutil.get("hfdsUrl") );
+		} catch (Exception e) {
+                        e.printStackTrace();
+                } finally {
 			out.close();
 		}	
 	}
 
 
-	@RequestMapping(params = "method=info3",method = RequestMethod.GET)
+	@RequestMapping(value = "/test2",params = "method=info3",method = RequestMethod.GET)
 	public void getServletInfo3(HttpServletRequest request,
                 HttpServletResponse response, String name, int id) throws ServletException, IOException 
 	{
@@ -80,13 +111,17 @@ public class MySedServlet extends HttpServlet {
 			out.println("MyFirstServlet method = info3 GET");
 			out.println("name = " + name);
 			out.println("id = " + Integer.toString(id));
+			out.println("env : " + env.get("uploadPrefix") + ", " + env.get("hfdsUrl") );
+			out.println("env : " + envutil.get("uploadPrefix") + ", " + envutil.get("hfdsUrl") );
+		} catch (Exception e) {
+			e.printStackTrace();
 		} finally {
 			out.close();
 		}	
 	}
 
 
-	@RequestMapping(params = "method=info4")
+	@RequestMapping(value = "/test2",params = "method=info4")
 	public void getServletInfo4(HttpServletRequest request,
                 HttpServletResponse response, @RequestParam("name") String name, @RequestParam("id") int id) throws ServletException, IOException 
 	{
@@ -96,12 +131,16 @@ public class MySedServlet extends HttpServlet {
 			out.println("MyFirstServlet method = info4");
 			out.println("name = " + name);
 			out.println("id = " + Integer.toString(id));
-		} finally {
+			out.println("env : " + env.get("uploadPrefix") + ", " + env.get("hfdsUrl") );
+			out.println("env : " + envutil.get("uploadPrefix") + ", " + envutil.get("hfdsUrl") );
+		} catch (Exception e) {
+                        e.printStackTrace();
+                } finally {
 			out.close();
 		}	
 	}
 
-	@RequestMapping(params = "method=info5")
+	@RequestMapping(value = "/test2",params = "method=info5")
 	public String getServletInfo5(@RequestParam("name") String name, @RequestParam("id") int id)
 	{
 		return "msg";

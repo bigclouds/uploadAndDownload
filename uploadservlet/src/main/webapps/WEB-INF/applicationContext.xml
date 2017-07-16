@@ -16,7 +16,7 @@
        http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc.xsd
        http://www.springframework.org/schema/util 
-       http://www.springframework.org/schema/util/spring-util.xsd">
+       http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
 
     <!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
@@ -25,10 +25,29 @@
     <!-- 另外最好还要加入DefaultAnnotationHandlerMapping，不然会被 XML或其它的映射覆盖！ -->
     <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
 
-    <util:properties id="env" location="classpath:env.properties"/>
+    <util:properties id="config" location="classpath:env.properties"/>
     <context:property-placeholder location="classpath:datasource.properties,classpath:env.properties" />
     <context:component-scan base-package="com.store" />
     <context:annotation-config />
+
+    <bean id="configProperties"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="locations">
+            <list>
+                <value>classpath*:/env.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="configpf" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+      <property name="locations">
+      <list>
+        <value>classpath*:/env.properties</value>
+      </list>
+      </property>
+      <property name="fileEncoding" value="UTF-8"></property>
+    </bean>
 
     <mvc:view-controller path="/" view-name="login"/>
     <mvc:annotation-driven />

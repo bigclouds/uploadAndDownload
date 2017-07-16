@@ -17,15 +17,16 @@
           		<id>dev</id> 
 			<properties>
 				<env>dev</env>
+				<UPLOAD_TYPE>file</UPLOAD_TYPE>
 				<mongo.host>127.0.0.1</mongo.host>
 				<mongo.port>27017</mongo.port>
 				<mongo.db>upload</mongo.db>
 				<mongo.username>upload</mongo.username>
 				<mongo.password>upload</mongo.password>
-				<mongo.connectionsPerHost>10</mongo.connectionsPerHost>
-				<mongo.autoConnectRetry>true</mongo.autoConnectRetry>
-				<mongo.socketKeepAlive>true</mongo.socketKeepAlive>
-				<mongo.socketTimeout>5000</mongo.socketTimeout>
+				<mongo.ConnectionsPerHost>10</mongo.ConnectionsPerHost>
+				<mongo.AutoConnectRetry>true</mongo.AutoConnectRetry>
+				<mongo.SocketKeepAlive>true</mongo.SocketKeepAlive>
+				<mongo.SocketTimeout>5000</mongo.SocketTimeout>
 				<MQ_HOST>127.0.0.1</MQ_HOST>
 				<MQ_PORT>5675</MQ_PORT>
 				<MQ_VIRTUAL_HOST>test</MQ_VIRTUAL_HOST>
@@ -53,11 +54,16 @@
 			  </activation> 
 			<properties>
 				<env>prod</env>
+				<UPLOAD_TYPE>file</UPLOAD_TYPE>
 				<mongo.host>127.0.0.1</mongo.host>
 				<mongo.port>27017</mongo.port>
 				<mongo.db>upload</mongo.db>
 				<mongo.username>upload</mongo.username>
 				<mongo.password>upload</mongo.password>
+				<mongo.ConnectionsPerHost>10</mongo.ConnectionsPerHost>
+				<mongo.AutoConnectRetry>true</mongo.AutoConnectRetry>
+				<mongo.SocketKeepAlive>true</mongo.SocketKeepAlive>
+				<mongo.SocketTimeout>5000</mongo.SocketTimeout>
 				<MQ_HOST>140.130.99.137</MQ_HOST>
 				<MQ_PORT>5675</MQ_PORT>
 				<MQ_VIRTUAL_HOST>test</MQ_VIRTUAL_HOST>
@@ -301,23 +307,8 @@
 		</dependency>
 		<dependency>
 		    <groupId>org.mongodb</groupId>
-		    <artifactId>mongodb-driver-async</artifactId>
-		    <version>3.2.2</version>
-		</dependency>
-		<dependency>
-		    <groupId>org.mongodb</groupId>
 		    <artifactId>bson</artifactId>
 		    <version>3.2.2</version>
-		</dependency>
-		<dependency>
-	            <groupId>org.springframework.data</groupId>
-		    <artifactId>spring-data-mongodb</artifactId>
-		    <version>1.10.4.RELEASE</version>
-		</dependency>
-		<dependency>
-		    <groupId>org.hibernate.ogm</groupId>
-		    <artifactId>hibernate-ogm-mongodb</artifactId>
-		    <version>5.0.4.Final</version>
 		</dependency>
 	</dependencies>
 
