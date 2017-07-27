@@ -1,11 +1,16 @@
-<html lang="en">
+<%@ page contentType="text/html;charset=UTF-8" %>
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
 </head>
 <body>
 <div align="center">
-<table border="0">
+  <div align="center">
+    ${message}
+  </div>
+  <h2 align="center">欢迎登陆</h2>
+  <table border="0">
     <form action="${pageContext.request.contextPath}/login" method="post">
       	<tr>
 	  <th align="left">

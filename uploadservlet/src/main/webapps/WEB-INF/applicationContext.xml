@@ -29,6 +29,8 @@
     <context:property-placeholder location="classpath:datasource.properties,classpath:env.properties" />
     <context:component-scan base-package="com.store" />
     <context:annotation-config />
+    <import resource="spring-upload-autowire.xml" />
+    <import resource="spring-*-autowire.xml" />
 
     <bean id="configProperties"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -54,5 +56,4 @@
     <mvc:resources location="/assets/" mapping="/assets/**"></mvc:resources>
     <mvc:resources location="/static/" mapping="/static/**"></mvc:resources>
     <mvc:default-servlet-handler />
-    <import resource="spring-*-autowire.xml" />
 </beans>

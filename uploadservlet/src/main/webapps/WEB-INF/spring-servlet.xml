@@ -19,6 +19,8 @@
        http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
 
+    <import resource="spring-upload-autowire.xml" />
+    <import resource="spring-*-autowire.xml" />
     <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
         <property name="prefix" value="/jsp/" />
@@ -30,8 +32,6 @@
     <!-- 另外最好还要加入DefaultAnnotationHandlerMapping，不然会被 XML或其它的映射覆盖！ -->
     <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
 
-    <context:component-scan base-package="com.store" />
-    <context:annotation-config />
     <util:properties id="config" location="classpath*:/env.properties"/>
     <context:property-placeholder location="classpath:datasource.properties,classpath:env.properties" />
     <context:component-scan base-package="com.store" />
@@ -41,5 +41,4 @@
     <bean id="exceptionResolver" class="com.test.uts.uploadServer.controller.ExceptionHandler"></bean>
     <bean id="multipartResolver" class="com.test.uts.uploadServer.controller.VideoMultipartResolver" p:defaultEncoding="utf-8" p:maxInMemorySize="12040" />
     -->
-
 </beans>

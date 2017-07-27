@@ -27,6 +27,7 @@
 				<mongo.AutoConnectRetry>true</mongo.AutoConnectRetry>
 				<mongo.SocketKeepAlive>true</mongo.SocketKeepAlive>
 				<mongo.SocketTimeout>5000</mongo.SocketTimeout>
+				<mongo.ConnectTimeout>2000</mongo.ConnectTimeout>
 				<MQ_HOST>127.0.0.1</MQ_HOST>
 				<MQ_PORT>5675</MQ_PORT>
 				<MQ_VIRTUAL_HOST>test</MQ_VIRTUAL_HOST>
@@ -64,6 +65,7 @@
 				<mongo.AutoConnectRetry>true</mongo.AutoConnectRetry>
 				<mongo.SocketKeepAlive>true</mongo.SocketKeepAlive>
 				<mongo.SocketTimeout>5000</mongo.SocketTimeout>
+				<mongo.ConnectTimeout>2000</mongo.ConnectTimeout>
 				<MQ_HOST>140.130.99.137</MQ_HOST>
 				<MQ_PORT>5675</MQ_PORT>
 				<MQ_VIRTUAL_HOST>test</MQ_VIRTUAL_HOST>
@@ -289,7 +291,6 @@
 			<artifactId>commons-collections</artifactId>
 			<version>3.1</version>
 		</dependency>
-
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
@@ -309,6 +310,22 @@
 		    <groupId>org.mongodb</groupId>
 		    <artifactId>bson</artifactId>
 		    <version>3.2.2</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework.data</groupId>
+		    <artifactId>spring-data-mongodb</artifactId>
+		    <version>1.9.6.RELEASE</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework.data</groupId>
+		    <artifactId>spring-data-commons</artifactId>
+		    <version>1.13.4.RELEASE</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>slf4j-simple</artifactId>
+		    <version>1.7.13</version>
+		    <scope>test</scope>
 		</dependency>
 	</dependencies>
 

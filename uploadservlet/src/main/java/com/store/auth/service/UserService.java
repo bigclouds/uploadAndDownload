@@ -2,23 +2,72 @@ package com.store.auth.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.store.auth.model.User;
+import java.util.Date;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import javax.annotation.Resource;
+import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
+import org.apache.log4j.Logger;
 
+import com.store.auth.model.UserProxy;
+import com.store.model.User;
+import com.store.repo.UserRepository;
+
+@Service
+@Controller
 public class UserService {
 
-    private static final List<User> USERS = new ArrayList<>();
+    private static Logger logger = Logger.getLogger(UserService.class);
+    private static final List<UserProxy> USERS = new ArrayList<>();
+    @Autowired
+    private UserRepository userrepo;
 
     static {
-        USERS.add(new User("admin@admin", "admin", "admin", true));
-        USERS.add(new User("user@user", "user", "user"));
+        USERS.add(new UserProxy("admin@admin", "admin", "admin", true));
+        USERS.add(new UserProxy("user@user", "user", "user"));
     }
 
-    public static boolean hasUser(User user) {
-        return USERS.contains(user);
+    public boolean hasUser(UserProxy user) {
+	if (USERS.contains(user)) {
+		return USERS.contains(user);
+	} else {
+		User u = userrepo.findOne(user.getEmail(), user.getPassword());
+		return u != null ? true : false;
+	}
     }
 
-   public static User getUser(User u){
-	int i = USERS.indexOf(u);
-	return i >= 0?USERS.get(i):null;
+   public UserProxy getUser(UserProxy up) {
+	int i = USERS.indexOf(up);
+	if (i >= 0) {
+		return USERS.get(i);
+	} else {
+		User u = userrepo.findOne(up.getEmail(), up.getPassword());
+		if (u != null)
+			return new UserProxy(u.getEmail(), u.getName(), u.getPassword(), u.getIsAdmin());
+		else
+			return null;
+	}
+   }
+
+   @RequestMapping(value = "/register", method = RequestMethod.POST)
+   public String register(@RequestParam(value="username",required = true) String username, @RequestParam(value="email",required = true) String email, 
+			@RequestParam(value="password",required = true) String password, @RequestParam(value="date", required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date date)
+   {
+	User u = new User(username, email, password);
+	if (date != null) {
+		u.setBirthday(date);
+	}
+	logger.info("register user " + u.toString());
+	userrepo.insert(u);
+        return "login";
    }
 }
