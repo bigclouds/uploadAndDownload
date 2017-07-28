@@ -66,9 +66,9 @@ public static String fileload(String url, File file) {
 
 
 	public static void main(String[] args) throws Exception {
-		String host1 = "http://192.168.15.132:7080/mvcupload/upload.do";
-		String multiupload = "http://192.168.15.132:7080/upload/fileUploadtwo";
-		String signalupload = "http://192.168.15.132:7080/upload/fileUploadone";
+		String host1 = "http://192.168.15.132:7080/fileupload/upload.do";
+		String multiupload = "http://192.168.15.132:7080/fileuploadmvc/fileUploadtwo";
+		String signalupload = "http://192.168.15.132:7080/fileuploadmvc/fileUploadone";
 		String body = fileload(host1, new File(args[0]));
 		System.out.println(body);
 	}

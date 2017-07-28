@@ -7,8 +7,8 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-            /WEB-INF/config/applicationContext.xml
-            /WEB-INF/config/codeifAction.xml
+            /WEB-INF/applicationContext.xml
+            /WEB-INF/codeifAction.xml
         </param-value>
     </context-param>
 
@@ -17,7 +17,7 @@
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>/WEB-INF/config/codeifAction.xml</param-value>
+            <param-value>/WEB-INF/codeifAction.xml</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
