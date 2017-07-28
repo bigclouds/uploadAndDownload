@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
 import java.util.Date;
 import com.store.env.Env;
 import com.store.env.EnvUtil;
@@ -26,11 +27,9 @@ import com.store.repo.UserRepository;
 //@RequestMapping(value = "/test2")
 public class MySedServlet extends HttpServlet {
 	@Autowired
-	//@Qualifier(value = "Env")
 	private Env env;
 
 	@Autowired
-	//@Qualifier(value = "Env")
 	private EnvUtil envutil;
 
 	@Autowired
@@ -70,8 +69,8 @@ public class MySedServlet extends HttpServlet {
 		//User user = new User("testname", "test@163.com", "test");
 		//user.setBirthday(new Date("2012/02/02 15:30:09"));
 		//userrepo.insert(user); 
-		User user = userrepo.findOne("test@163.com", "test");
 		try {
+			User user = userrepo.findOne("test@163.com", "test");
 			out.println(user.toString());
 		} catch (Exception e) {
                         e.printStackTrace();
@@ -161,9 +160,17 @@ public class MySedServlet extends HttpServlet {
 	}
 
 	@RequestMapping(value = "/test2",params = "method=info5")
-	public String getServletInfo5(@RequestParam("name") String name, @RequestParam("id") int id)
+	public String getServletInfo5(@RequestParam("name") String name, @RequestParam("id") int id, Model model)
 	{
+		model.addAttribute("message", "name=" + name + ", id=" + id);
+
 		return "msg";
 	}
 
+	@RequestMapping(value = "/test2",params = "token")
+	public String getServletInfo6(@RequestParam(value="token", required = true) String token, Model model)
+	{
+		model.addAttribute("message", "token=" + token);
+		return "msg";
+	}
 }

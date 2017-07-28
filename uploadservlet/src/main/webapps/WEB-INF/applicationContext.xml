@@ -30,6 +30,7 @@
     <context:component-scan base-package="com.store" />
     <context:annotation-config />
     <import resource="spring-upload-autowire.xml" />
+    <import resource="spring-email.xml" />
     <import resource="spring-*-autowire.xml" />
 
     <bean id="configProperties"

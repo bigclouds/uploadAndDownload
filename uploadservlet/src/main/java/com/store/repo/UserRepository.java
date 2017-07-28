@@ -3,7 +3,6 @@ package com.store.repo;
 import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
-import javax.annotation.Resource;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.domain.Sort.Order;
@@ -14,23 +13,27 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Component;
+import org.apache.log4j.Logger;
 
 import com.mongodb.DB;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import com.store.model.User;
 
 @Repository
-//@Controller
 public class UserRepository {
 
-	//@Autowired
 	@Resource(name = "mongoTemplate")
 	private MongoTemplate mongoTemplate;
 
-	public void init() {
+	private static Logger logger = Logger.getLogger(UserRepository.class);
+
+	@PostConstruct
+	public void init() throws Exception {
 		createCollection();
+		logger.info("UserRepository init");
 	}
 
 	public String test() {
@@ -63,9 +66,9 @@ public class UserRepository {
 		return this.mongoTemplate.find(query, User.class);
 	}
 
-	public List<User> findListByEmail(String name) {
+	public List<User> findListByEmail(String email) {
 		Query query = new Query();
-		query.addCriteria(new Criteria("email").is(name));
+		query.addCriteria(new Criteria("email").is(email));
 		return this.mongoTemplate.find(query, User.class);
 	}
 

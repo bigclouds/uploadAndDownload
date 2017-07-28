@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.ui.Model;
+import com.store.auth.model.UserProxy;
 
 @Controller
 public class UserServlet {
@@ -25,10 +26,11 @@ public class UserServlet {
 	String message = (String) session.getAttribute("email");
 	String name = (String) session.getAttribute("name");
 	String isadmin = Boolean.valueOf((Boolean)session.getAttribute("isadmin"))?" ADMIN":" No ADMIN";
+	UserProxy u = (UserProxy) session.getAttribute("self");
 	//req.setAttribute("message",message + " " + name + isadmin);
         //req.getRequestDispatcher("jsp/user.jsp").forward(req, resp);
         //ModelAndView modelAndView = new ModelAndView("jsp/user.jsp");
-        model.addAttribute("message",message + " " + name + isadmin);
+        model.addAttribute("message",message + "," + name + "," + isadmin + "," + u.toString());
 	
 	return "user";
     }

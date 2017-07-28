@@ -57,17 +57,4 @@ public class UserService {
 			return null;
 	}
    }
-
-   @RequestMapping(value = "/register", method = RequestMethod.POST)
-   public String register(@RequestParam(value="username",required = true) String username, @RequestParam(value="email",required = true) String email, 
-			@RequestParam(value="password",required = true) String password, @RequestParam(value="date", required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date date)
-   {
-	User u = new User(username, email, password);
-	if (date != null) {
-		u.setBirthday(date);
-	}
-	logger.info("register user " + u.toString());
-	userrepo.insert(u);
-        return "login";
-   }
 }

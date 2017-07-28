@@ -62,7 +62,7 @@
         </init-param>
         <init-param>
          <param-name>approximateMatchExcludedURLs</param-name>
-         <param-value>/register,/test2,/test,/static,/login,/jsp/,.html,.jsp</param-value>
+         <param-value>/confirm,/register,/test2,/test,/static,/login,/jsp/,.html,.jsp</param-value>
        </init-param>
    </filter>
    <filter-mapping>

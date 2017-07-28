@@ -11,17 +11,9 @@
 
     <!--
     <bean id="MyFirstServlet" class="com.store.servlets.MyFirstServlet" />
-    <mongo:repositories base-package="com.store">
-    <mongo:mongo id="mongo1" host="127.0.0.1" port="27017"></mongo:mongo>
-    <mongo:db-factory id="mongoDbFactory1" dbname="upload"
-        mongo-ref="mongo1" username="upload" password="upload" />    
-    <bean id="mongoTemplate1" class="org.springframework.data.mongodb.core.MongoTemplate">
-         <constructor-arg name="mongoDbFactory" ref="mongoDbFactory1" />
-    </bean>
     -->
 
-
-     <!-- mongodb 的基本配置 -->
+    <!-- mongodb 的基本配置 -->
     <mongo:mongo id="mongo2"  host="127.0.0.1" port="27017"  />
 
     <!-- 权限配置 -->
@@ -38,22 +30,4 @@
         <!-- 权限  -->
         <constructor-arg ref="userCredentials" />
     </bean>
-
-    <!--
-    <mongo:mongo-client host="127.0.0.1" port="27017" credentials="upload:upload@upload" id="mongo">    
-    <mongo:client-options
-    connections-per-host="10"
-    min-connections-per-host="5"
-    threads-allowed-to-block-for-connection-multiplier="5"
-    connect-timeout="2000"
-    max-wait-time="120000"
-    socket-keep-alive="true"
-    socket-timeout="0"
-    write-concern="SAFE" />
-    </mongo:mongo-client>   
-    <mongo:db-factory  id="mongoDbFactory" dbname="upload" mongo-ref="mongo" />  
-    <bean id="mongoTemplate2" class="org.springframework.data.mongodb.core.MongoTemplate">
-	<constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
-    </bean>
-    -->
 </beans>
