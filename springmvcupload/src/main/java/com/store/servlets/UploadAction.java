@@ -12,6 +12,9 @@ import java.io.OutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.BufferedOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -66,32 +69,49 @@ public class UploadAction {
     }
 
     @RequestMapping(value = "/download.do")
-    public String download(HttpServletRequest request, HttpServletResponse response){
+    public void download(HttpServletRequest request, HttpServletResponse response){
 	String downloadfFileName = request.getParameter("filename");
         String path = request.getSession().getServletContext().getRealPath("/upload");
+	//String path = "/letv/upload";
 	log.debug("YYY " + path + "/" + downloadfFileName);
 	File dir = new File(path + "/" + downloadfFileName);
-        if(!dir.exists()){
-            return "index";
+	String suffix = downloadfFileName.substring(downloadfFileName.lastIndexOf(".") + 1);
+        if(!dir.exists()) {
+		return;
 	}
 	try{
-		response.reset();
+		String contentType = null;
+		Path pathct = Paths.get(path + "/" + downloadfFileName);
+		contentType = Files.probeContentType(pathct);
+		String range=request.getHeader("Range");
+		//response.reset();
+		response.resetBuffer();
 		//response.setContentType("application/x-download");
-		response.setContentType("application/octet-stream");
-		//response.addHeader("Content-Disposition", "inline;filename = " +  java.net.URLEncoder.encode(downloadfFileName, "UTF-8"));
-		response.addHeader("Content-Disposition", "attachment;filename = " +  java.net.URLEncoder.encode(downloadfFileName, "UTF-8"));
+		if (contentType != null) {
+			response.setContentType("application/dicom");
+			response.addHeader("Content-Type", contentType);
+		} else {
+			response.setContentType("application/octet-stream");
+			response.addHeader("Content-Type", "application/octet-stream");
+		}
+		response.addHeader("Content-Disposition", "inline;filename = " +  java.net.URLEncoder.encode(downloadfFileName, "UTF-8"));
+		//response.addHeader("Content-Disposition", "attachment;filename = " +  java.net.URLEncoder.encode(downloadfFileName, "UTF-8"));
+		response.addHeader("Accept-Ranges", "bytes");
 		response.addHeader("Content-Length", "" + dir.length());
 	}catch(Exception e) {
-		;
+		e.printStackTrace();
+		//return "index";
+		return ;
 	}
-	try{
+	try {
 		FileInputStream in = new FileInputStream(dir);
 		OutputStream out = new BufferedOutputStream(response.getOutputStream());
 		write(in, out);
 	} catch(Exception e) {
             e.printStackTrace();
 	}
-	return "index";
+	log.debug("YYY finish " + path + "/" + downloadfFileName);
+	//return "index";
     }
 
     public static void write(InputStream in, OutputStream out) throws IOException{
@@ -101,23 +121,19 @@ public class UploadAction {
             while ((bytesRead = in.read(buffer)) != -1) {
                 out.write(buffer, 0, bytesRead);
             }
-            out.flush();
-        } finally {
-            try {
-                in.close();
-                out.close();
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+            //out.flush();
+            in.close();
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+	} 
     }
 
     @RequestMapping(value = "/upload.do")
     public String upload(@RequestParam(value = "file", required = false) MultipartFile file,
 		HttpServletRequest request, ModelMap model) {
 
-        String path = request.getSession().getServletContext().getRealPath("/upload");
+        String path = request.getSession().getServletContext().getRealPath("/upload/");
 	File dir = new File(path);
         String fileName = file.getOriginalFilename();
         if (fileName == null || fileName.equals(""))
